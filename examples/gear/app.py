@@ -8,7 +8,7 @@ tskin: TSkin = None
 def main():
     model_folder = getcwd()
 
-    TSKIN_MAC = "C0:83:43:39:21:57"
+    TSKIN_MAC = "C0:83:35:34:28:38"
     TSKIN_HAND = Hand.RIGHT # Hand.LEFT if hand is left
     TSKIN_NAME = "TSKIN"
 
