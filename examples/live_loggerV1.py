@@ -17,7 +17,9 @@ gesture_mapping = {
 }
 
 def main():
-    TSKIN_MAC = "C0:83:35:34:28:38"
+    #TSKIN_MAC = "C0:83:35:34:28:38"
+
+    TSKIN_MAC = "C0:83:3F:34:25:38"
     tskin_cfg = TSkinConfig(TSKIN_MAC, Hand.RIGHT)
     tskin = TSkin(tskin_cfg)
     tskin.start()
@@ -29,6 +31,7 @@ def main():
     
     # Configure subplots
     ax_angle, ax_acc, ax_gyro, ax_touch = axs
+
     
     ax_angle.set_ylabel('Angle (deg)')
     line_roll, = ax_angle.plot([], [], label='Roll')
@@ -174,7 +177,7 @@ def main():
         if i > 5:
             break
 
-        plt.pause(0.01)  # Maintain 50Hz update rate
+        plt.pause(0.001)
 
     # Cleanup
     if csvfile:
