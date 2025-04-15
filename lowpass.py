@@ -52,8 +52,8 @@ print(f"Data shape after dropping full NaN rows: {df.shape}")
 # This is simple; interpolation might be better for some signals.
 if df.isnull().any().any():
     print("Filling remaining NaN values...")
-    df.fillna(method='ffill', inplace=True)
-    df.fillna(method='bfill', inplace=True) # Handle NaNs at the very beginning
+    df.ffill(inplace=True)
+    df.bfill(inplace=True) # Handle NaNs at the very beginning
 
 if df.empty:
     print("Error: No valid data remaining after cleaning.")
@@ -64,22 +64,23 @@ print("Data cleaning complete.")
 
 # 3. Estimate Sampling Rate
 # Calculate time differences between consecutive samples
-time_diffs = df['timestamp'].diff().dropna() # dropna() removes the first NaN difference
+# time_diffs = df['timestamp'].diff().dropna() # dropna() removes the first NaN difference
 
-if time_diffs.empty or (time_diffs <= 0).any():
-    print("Error: Could not determine a valid sampling rate from timestamps.")
-    print("Check timestamps for monotonicity and sufficient data points.")
-    # Optionally, you could hardcode an expected sampling rate here if known
-    # fs = 10.0 # Example: If you know it's roughly 10 Hz
-    exit()
+# if time_diffs.empty or (time_diffs <= 0).any():
+#     print("Error: Could not determine a valid sampling rate from timestamps.")
+#     print("Check timestamps for monotonicity and sufficient data points.")
+#     # Optionally, you could hardcode an expected sampling rate here if known
+#     # fs = 10.0 # Example: If you know it's roughly 10 Hz
+#     exit()
 
 
-# Use the median time difference for robustness against outliers
-median_sample_period = time_diffs.median()
-fs = 1.0 / median_sample_period # Sampling frequency in Hz
+# # Use the median time difference for robustness against outliers
+# median_sample_period = time_diffs.median()
+# fs = 1.0 / median_sample_period # Sampling frequency in Hz
 
-print(f"Estimated Sampling Period: {median_sample_period:.6f} seconds")
-print(f"Estimated Sampling Frequency (fs): {fs:.2f} Hz")
+fs = 50 # Hardcoded for testing purposes
+# print(f"Estimated Sampling Period: {median_sample_period:.6f} seconds")
+# print(f"Estimated Sampling Frequency (fs): {fs:.2f} Hz")
 
 # Check if cutoff frequency is valid for the sampling rate (Nyquist theorem)
 if cutoff_freq_hz >= fs / 2:
