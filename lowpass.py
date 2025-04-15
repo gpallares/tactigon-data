@@ -112,6 +112,7 @@ for col in columns_to_filter:
         print(f"Skipping filtering for column '{col}' (not found or all NaN).")
 
 
+
 # 6. Visualize (Example: Plot Accelerometer and Gyroscope data)
 print("Plotting results...")
 signals_to_plot = {
