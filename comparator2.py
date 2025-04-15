@@ -88,8 +88,8 @@ def compare_aruco_imu(aruco_csv, imu_csv):
     plt.show()
 
 if __name__ == "__main__":
-    aruco_file = "/home/banjov2/Tactigon-SDK/aruco_log_20250319_113300.csv"
-    imu_file = "/home/banjov2/Tactigon-SDK/tskin_log_20250319_113249.csv" 
+    aruco_file = "aruco_log_20250319_113300.csv"
+    imu_file = "tskin_log_20250319_113249.csv" 
     # aruco_file = "/home/banjov2/Tactigon-SDK/aruco_log_20250319_113300.csv"
     # imu_file = "/home/banjov2/Tactigon-SDK/tskin_log_20250319_113249.csv"
     compare_aruco_imu(aruco_file, imu_file)
