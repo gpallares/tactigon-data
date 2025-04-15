@@ -6,7 +6,7 @@ import os # Added to check if file exists
 
 # --- Configuration ---
 # <<< CHANGE THIS TO THE ACTUAL PATH OF YOUR LOG FILE >>>
-log_file_path = 'tskin_log_20250403_175238.csv'
+log_file_path = 'sintetico.csv'
 
 # Filter parameters (ADJUST THESE AS NEEDED)
 filter_order = 3      # Order of the Butterworth filter

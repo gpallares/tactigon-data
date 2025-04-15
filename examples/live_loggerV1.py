@@ -5,10 +5,11 @@ from tactigon_gear import TSkin, TSkinConfig, Hand, OneFingerGesture
 import matplotlib.pyplot as plt
 
 # Configure gesture mapping for numerical representation
+#gestures=['up', 'down', 'push', 'pull', 'twist', 'circle', 'swipe_r', 'swipe_l']
 gesture_mapping = {
     '': 0,
     'TAP': 1,
-    'DOUBLE_TAP': 2,
+    'twist': 2,
     'SWIPE_UP': 3,
     'SWIPE_DOWN': 4,
     'SWIPE_LEFT': 5,
@@ -17,9 +18,9 @@ gesture_mapping = {
 }
 
 def main():
-    #TSKIN_MAC = "C0:83:35:34:28:38"
+    TSKIN_MAC = "C0:83:35:34:28:38"
 
-    TSKIN_MAC = "C0:83:3F:34:25:38"
+    # TSKIN_MAC = "C0:83:1F:34:23:38"
     tskin_cfg = TSkinConfig(TSKIN_MAC, Hand.RIGHT)
     tskin = TSkin(tskin_cfg)
     tskin.start()
@@ -95,6 +96,7 @@ def main():
 
         a = tskin.angle
         t = tskin.touch
+        g = tskin.gesture.gesture if tskin.gesture else None
         acc = tskin.acceleration
         gyro = tskin.gyro
 
@@ -104,6 +106,7 @@ def main():
         pitch_log = a.pitch if a else ''
         yaw_log = a.yaw if a else ''
         touch_gesture_log = t.one_finger.name if t and t.one_finger else ''
+        touch_gesture_log = g.name if g else touch_gesture_log
         acc_x_log = acc.x if acc else ''
         acc_y_log = acc.y if acc else ''
         acc_z_log = acc.z if acc else ''
@@ -177,7 +180,7 @@ def main():
         if i > 5:
             break
 
-        plt.pause(0.001)
+        plt.pause(0.02)
 
     # Cleanup
     if csvfile:

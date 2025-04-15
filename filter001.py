@@ -2,17 +2,17 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, filtfilt
-from scipy.integrate import cumtrapz
+from scipy.integrate import cumulative_simpson
 
 # === Step 1: Load and clean the CSV ===
-file_path = 'tskin_log_20250403_173330.csv'  # Change to your path
+file_path = 'sintetico.csv'  # Change to your path
 df = pd.read_csv(file_path, on_bad_lines='skip', engine='python')
 
 # Extract acceleration columns and drop NaNs
 acc_df = df[['acc_x', 'acc_y', 'acc_z']].dropna().astype(float)
 
 # === Step 2: Apply low-pass filter ===
-def low_pass_filter(data, cutoff=4.0, fs=50.0, order=2):
+def low_pass_filter(data, cutoff=3.0, fs=50.0, order=2):
     nyquist = 0.5 * fs
     normal_cutoff = cutoff / nyquist
     b, a = butter(order, normal_cutoff, btype='low', analog=False)
@@ -24,8 +24,8 @@ for axis in ['acc_x', 'acc_y', 'acc_z']:
 
 # === Step 3: Integrate acceleration to get position ===
 def integrate_acceleration(acc_data, dt):
-    velocity = cumtrapz(acc_data, dx=dt, initial=0)
-    position = cumtrapz(velocity, dx=dt, initial=0)
+    velocity = cumulative_simpson(acc_data, dx=dt, initial=0)
+    position = cumulative_simpson(velocity, dx=dt, initial=0)
     return position
 
 fs = 50.0  # Sampling rate in Hz
