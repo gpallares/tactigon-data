@@ -11,7 +11,7 @@ CUTOFF = 2.0            # Low-pass cutoff (Hz)
 def butter_lowpass(cutoff, fs, order=4):
     nyq = 0.5 * fs
     normal_cutoff = cutoff / nyq
-    b, a = butter(order, normal_cutoff, btype='low', analog=False)
+    b, a = butter(order, normal_cutoff, btype='low', analog=False) 
     return b, a
 
 def lowpass_filter(data, cutoff, fs):

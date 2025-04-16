@@ -5,14 +5,14 @@ from scipy.signal import butter, filtfilt
 from scipy.integrate import cumulative_simpson
 
 # === Step 1: Load and clean the CSV ===
-file_path = 'sintetico.csv'  # Change to your path
+file_path = 'facedown-marked-meter-back-forth.csv'  # Change to your path
 df = pd.read_csv(file_path, on_bad_lines='skip', engine='python')
 
 # Extract acceleration columns and drop NaNs
 acc_df = df[['acc_x', 'acc_y', 'acc_z']].dropna().astype(float)
 
 # === Step 2: Apply low-pass filter ===
-def low_pass_filter(data, cutoff=3.0, fs=50.0, order=2):
+def low_pass_filter(data, cutoff=2.0, fs=48.946, order=2):
     nyquist = 0.5 * fs
     normal_cutoff = cutoff / nyquist
     b, a = butter(order, normal_cutoff, btype='low', analog=False)
@@ -47,7 +47,7 @@ for i, axis in enumerate(['acc_x', 'acc_y', 'acc_z']):
     plt.legend()
     plt.title(f'{axis.upper()} Acceleration')
     plt.xlabel('Sample')
-    plt.ylabel('Acceleration (g)')
+    plt.ylabel('Acceleration (m/s2)')
 plt.tight_layout()
 plt.show()
 
@@ -60,6 +60,6 @@ for i, axis in enumerate(['acc_x', 'acc_y', 'acc_z']):
     plt.legend()
     plt.title(f'{axis.upper()} Position (Integrated)')
     plt.xlabel('Sample')
-    plt.ylabel('Position (unit²/s)')
+    plt.ylabel('Position (m)')
 plt.tight_layout()
 plt.show()
