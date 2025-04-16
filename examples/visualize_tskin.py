@@ -45,5 +45,5 @@ def visualize_tskin_data(csv_path):
     plt.show()
 
 if __name__ == "__main__":
-    csv_file = "/home/banjov2/Tactigon-SDK/tskin_log_20250403_160518.csv"  # Replace with your filename
+    csv_file = "modified_data.csv"  # Replace with your filename
     visualize_tskin_data(csv_file)

@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import butter, filtfilt
+from scipy.signal import butter, filtfilt, detrend
 from scipy.integrate import cumulative_trapezoid, cumulative_simpson
 
 class IntegrationComparator:
@@ -28,9 +28,17 @@ class IntegrationComparator:
         )
         return filtered
 
-    def integrate(self, method='trapz', use_filter=False):
+    def integrate(self, method='trapz', use_filter=False, use_detrend=False):
         """Integrate using specified method with raw or filtered data"""
         acc_data = self.acc_filtered if use_filter else self.acc_raw
+
+        if use_detrend:
+            # Detrend the data
+            acc_data = pd.DataFrame(
+                detrend(acc_data.values, axis=0),
+                columns=acc_data.columns,
+                index=acc_data.index
+            )
         methods = {
             'trapz': lambda x: cumulative_trapezoid(x, dx=self.dt, initial=0),
             'simpson': cumulative_simpson,
@@ -115,7 +123,7 @@ class IntegrationComparator:
 
 # ================= Usage Example =================
 if __name__ == "__main__":
-    comparator = IntegrationComparator('tskin_log_20250415_180510.csv', fs=50, cutoff=2.0)
+    comparator = IntegrationComparator('modified_data.csv', fs=50, cutoff=2.0)
     
     # Compare integration methods with both raw and filtered data
     metrics = comparator.compare_methods()
