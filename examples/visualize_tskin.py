@@ -45,5 +45,5 @@ def visualize_tskin_data(csv_path):
     plt.show()
 
 if __name__ == "__main__":
-    csv_file = "tskin_log_20250416_162822.csv"  # Replace with your filename
+    csv_file = "position_3.csv"  # Replace with your filename
     visualize_tskin_data(csv_file)

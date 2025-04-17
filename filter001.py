@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, filtfilt
-from scipy.integrate import cumulative_simpson
+from scipy.integrate import cumulative_simpson, cumulative_trapezoid
 
 # === Step 1: Load and clean the CSV ===
-file_path = 'tskin_log_20250402_162343.csv'  # Change to your path
+file_path = 'position_3.csv'  # Change to your path
 df = pd.read_csv(file_path, on_bad_lines='skip', engine='python')
 
 # Extract acceleration columns and drop NaNs
@@ -15,7 +15,7 @@ acc_df = df[['acc_x', 'acc_y', 'acc_z']].dropna().astype(float)
 def low_pass_filter(data, cutoff=2.0, fs=48.946, order=2):
     nyquist = 0.5 * fs
     normal_cutoff = cutoff / nyquist
-    b, a = butter(order, normal_cutoff, btype='low', analog=False)
+    b, a = butter(order, normal_cutoff, btype='lowpass', analog=False)
     return filtfilt(b, a, data)
 
 filtered_acc = acc_df.copy()
@@ -24,11 +24,11 @@ for axis in ['acc_x', 'acc_y', 'acc_z']:
 
 # === Step 3: Integrate acceleration to get position ===
 def integrate_acceleration(acc_data, dt):
-    velocity = cumulative_simpson(acc_data, dx=dt, initial=0)
-    position = cumulative_simpson(velocity, dx=dt, initial=0)
+    velocity = cumulative_trapezoid(acc_data, dx=dt, initial=0)
+    position = cumulative_trapezoid(velocity, dx=dt, initial=0)
     return position
 
-fs = 50.0  # Sampling rate in Hz
+fs = 48.946  # Sampling rate in Hz
 dt = 1.0 / fs
 
 position_raw = pd.DataFrame()

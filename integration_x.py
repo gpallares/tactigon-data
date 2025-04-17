@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.integrate import cumulative_trapezoid
 
 # Load the CSV file
-df = pd.read_csv('modified_data.csv', usecols=['timestamp', 'acc_x'], on_bad_lines='skip')
+df = pd.read_csv('position_3.csv', usecols=['timestamp', 'acc_x'], on_bad_lines='skip')
 
 # Clean the data (remove rows with missing values)
 df = df.dropna(subset=['timestamp', 'acc_x'])

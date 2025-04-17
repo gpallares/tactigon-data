@@ -135,7 +135,7 @@ class AccXIntegrationComparator:
 
 # ================= Usage =================
 if __name__ == "__main__":
-    comparator = AccXIntegrationComparator('modified_data.csv', fs=50, cutoff=2.0)
+    comparator = AccXIntegrationComparator('tskin_log_20250417_155948.csv', fs=50, cutoff=2.0)
     metrics = comparator.compare_methods()
     
     # Plot acceleration comparison
