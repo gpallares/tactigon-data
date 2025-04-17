@@ -5,7 +5,7 @@ from scipy.signal import butter, filtfilt
 from scipy.integrate import cumulative_simpson
 
 # === Step 1: Load and clean the CSV ===
-file_path = 'facedown-marked-meter-back-forth.csv'  # Change to your path
+file_path = 'tskin_log_20250402_162343.csv'  # Change to your path
 df = pd.read_csv(file_path, on_bad_lines='skip', engine='python')
 
 # Extract acceleration columns and drop NaNs
