@@ -18,9 +18,9 @@ gesture_mapping = {
 }
 
 def main():
-    TSKIN_MAC = "C0:83:35:34:28:38"
+    #TSKIN_MAC = "C0:83:35:34:28:38"
 
-    # TSKIN_MAC = "C0:83:1F:34:23:38"
+    TSKIN_MAC = "C0:83:3E:39:21:57"
     tskin_cfg = TSkinConfig(TSKIN_MAC, Hand.RIGHT)
     tskin = TSkin(tskin_cfg)
     tskin.start()
