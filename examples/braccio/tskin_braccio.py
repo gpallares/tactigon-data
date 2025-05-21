@@ -12,7 +12,7 @@ def create_tskin() -> TSkin:
 
     # TSKIN CONFIGURATION
 
-    TSKIN_MAC = "TSkin Mac address"
+    TSKIN_MAC = "C0:83:3E:39:21:57"
 
     # Do not change the code below unless absolutely necessary.
     TSKIN_HAND = Hand.RIGHT
